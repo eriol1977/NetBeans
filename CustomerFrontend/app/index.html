@@ -7,12 +7,13 @@
 </head>
 <body ng-controller="CustomerCtrl">
 
-  <p>Selected customer: {{selected.name}} - {{selected.city}}</p>
+  <p>Selected customer: {{selected.name}} - {{selected.city}}({{selected.state}})</p>
   <p><input type="text" ng-model="customerFilter"/></p>
   <table border="1">
         <tr>
             <th>Name</th>
             <th>City</th>
+            <th>State</th>
         </tr>
         <tr ng-repeat="oneCustomer in allCustomers | filter:customerFilter"
             ng-class-even="'even'"
@@ -20,6 +21,7 @@
             ng-click="selectCustomer(oneCustomer)">
             <td>{{oneCustomer.name}}</td>
             <td>{{oneCustomer.city}}</td>
+            <td>{{oneCustomer.state}}</td>
         </tr>
   </table>
 
