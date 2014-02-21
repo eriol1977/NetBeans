@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>Customers Frontend</title>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body ng-controller="CustomerCtrl">
+
+  <p>Selected customer: {{selected.name}} - {{selected.city}}</p>
+  <p><input type="text" ng-model="customerFilter"/></p>
+  <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+        </tr>
+        <tr ng-repeat="oneCustomer in allCustomers | filter:customerFilter"
+            ng-class-even="'even'"
+            ng-class-odd="'odd'"
+            ng-click="selectCustomer(oneCustomer)">
+            <td>{{oneCustomer.name}}</td>
+            <td>{{oneCustomer.city}}</td>
+        </tr>
+  </table>
+
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-resource.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+</body>
+</html>
