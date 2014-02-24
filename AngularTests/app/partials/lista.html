@@ -1,0 +1,5 @@
+<select ng-model="selectedState" ng-options="state.code group by state.region for state in states">
+      <option value="">Escolha um estado</option>
+</select>
+<br/><br/>
+<p>{{selectedState.name}}</p>

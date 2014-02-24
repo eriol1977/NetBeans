@@ -1,0 +1,13 @@
+<form name="userInfoForm">
+    <div ng-class="getCssClasses(userInfoForm.email)">
+        <label>E-mail</label>
+        <input type="email" ng-model="user.email"
+               name="email" class="form-control" required>
+        <span ng-show="showError(userInfoForm.email, 'email')">
+            You must enter a valid email
+        </span>
+        <span ng-show="showError(userInfoForm.email, 'required')">
+            This field is required
+        </span>
+    </div>
+</form>
