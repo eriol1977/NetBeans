@@ -6,9 +6,12 @@
 
 package com.mycompany.customerbackend;
 
+import java.io.IOException;
 import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
+import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.ext.Provider;
 
 /**
@@ -16,13 +19,19 @@ import javax.ws.rs.ext.Provider;
  * @author Francesco
  */
 @Provider
-public class NewCrossOriginResourceSharingFilter implements ContainerResponseFilter {
+@PreMatching
+public class NewCrossOriginResourceSharingFilter implements ContainerResponseFilter, ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext response) {
         response.getHeaders().putSingle("Access-Control-Allow-Origin", "*");
         response.getHeaders().putSingle("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-        response.getHeaders().putSingle("Access-Control-Allow-Headers", "content-type");
+        response.getHeaders().putSingle("Access-Control-Allow-Headers", "Content-Type");
+    }
+
+    @Override
+    public void filter(ContainerRequestContext requestContext) throws IOException {
+        requestContext.getHeaders().putSingle("Access-Control-Allow-Origin", "*");
     }
     
 }
