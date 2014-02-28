@@ -1,0 +1,11 @@
+.even {
+    background-color: #99ccff;
+}
+
+.odd {
+    background-color: #faf2cc;
+}
+
+tr {
+    cursor: pointer;
+}
