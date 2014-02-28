@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>People Frontend</title>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body ng-controller="PeopleCtrl">
+
+  <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Delete?</th>
+            <th>New Name?</th>
+        </tr>
+        <tr ng-repeat="person in allPeople"
+            ng-class-even="'even'"
+            ng-class-odd="'odd'">
+            <td>{{person.name}}</td>
+            <td><input type="button" value="X" ng-click="deletePerson(person.pid)"/></td>
+            <td><input type="text" ng-model="newName"/><input type="button" value="+" ng-click="editPerson(person,newName)"/></td>
+        </tr>
+  </table>
+
+  <br/><br/>  
+    
+  <select ng-model="selectedPerson" ng-options="person.pid for person in allPeople" ng-change="findPerson(selectedPerson.pid)">
+      <option style="display:none" value="">Select Id</option>
+  </select>
+  <span>{{foundPerson.name}}</span>
+  
+  <br/><br/>
+  
+  <label>Id:</label>
+  <input type="text" ng-model="newPersonId"/>
+  <label>Name:</label>
+  <input type="text" ng-model="newName"/>
+  <input type="button" value="Insert" ng-click="insertPerson(newPersonId,newName)"/>
+    
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-resource.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+</body>
+</html>
