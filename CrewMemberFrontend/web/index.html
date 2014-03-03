@@ -12,14 +12,14 @@
 
         <div class="input-group">
             <span class="input-group-addon">Nome:</span>
-            <input type="text" class="form-control" ng-model="nameFlt">
+            <input type="text" class="form-control" ng-model="nameFlt" ng-change="resetPageNumber()">
         </div>
 
         <br/>
 
         <div class="input-group">
             <label>Dia Tipo:</label>
-            <select ng-model="selectedDay" ng-options="day.shortName as day.shortName for day in weekDays">
+            <select ng-model="selectedDay" ng-options="day.shortName as day.shortName for day in weekDays" ng-change="resetPageNumber()">
                 <option value="">TODOS</option>
             </select>
         </div>
