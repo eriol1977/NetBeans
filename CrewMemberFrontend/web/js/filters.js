@@ -1,4 +1,4 @@
-angular.module('myApp.filters', []).filter('dateFilter', function() { //201311061016
+angular.module('myApp.filters', []).filter('dateConverter', function() { //201311061016
     return function(inputDate) {
         var dateString = inputDate.toString();
         var formattedDate = dateString.substring(6, 8) + "/" + dateString.substring(4, 6) + "/" + dateString.substring(0, 4);
@@ -6,34 +6,46 @@ angular.module('myApp.filters', []).filter('dateFilter', function() { //20131106
             formattedDate += " " + dateString.substring(8, 10) + ":" + dateString.substring(10, 12);
         return formattedDate;
     };
-}).filter('weekDayFilter', function() { //31
+}).filter('weekDayConverter', function(WEEK_DAYS, WeekDaysService) { //31
     return function(inputFlags) {
         if (inputFlags === 31)
             return "ÚTIL";
         else {
             var names = "";
-            var WEEK_DAY_VALUES = new Array(1, 2, 4, 8, 16, 32, 64);
-            var WEEK_DAY_SHORT_NAMES = new Array("SEG", "TER", "QUA", "QUI", "SEX", "SÁB", "DOM");
-            for (var i = 0; i < WEEK_DAY_VALUES.length; i++)
+            for (var i = 0; i < WEEK_DAYS.length; i++)
             {
-                if (isDaysCompatible(WEEK_DAY_VALUES[i], inputFlags))
-                    names += WEEK_DAY_SHORT_NAMES[i] + " ";
+                if (WeekDaysService.isDaysCompatible(WEEK_DAYS[i].value, inputFlags))
+                    names += WEEK_DAYS[i].shortName + " ";
             }
             return names;
         }
     };
-    
-    function isDaysCompatible(values,mask) {
-        var allValues = 127;
-        var localValues = values & allValues;
-        var localMask = mask & allValues;
-        if (localValues === 0 && localMask !== 0)
-            return false;
-        return ((localValues & localMask) === localValues);
+}).filter('weekDayFilter', function(EXTENDED_WEEK_DAYS, WeekDaysService) {
+    return function(elements, label) {
+        if (label === undefined || label === null)
+            return elements;
+
+        var selectedWeekDay;
+        for (var j = 0; j < EXTENDED_WEEK_DAYS.length; j++) {
+            if (EXTENDED_WEEK_DAYS[j].shortName === label)
+                selectedWeekDay = EXTENDED_WEEK_DAYS[j];
+        }
+        var filteredElements = new Array();
+        for (var i = 0; i < elements.length; i++) {
+            if (WeekDaysService.isDaysCompatible(selectedWeekDay.value, elements[i].flags))
+                filteredElements.push(elements[i]);
+        }
+        return filteredElements;
+    };
+}).filter('pagination', function() {
+    return function(elements, selectedPage, pageSize) {
+        var start = selectedPage * pageSize;
+        return elements.slice(start, start + pageSize);
     };
 });
+;
 
 
-        
+
 
         

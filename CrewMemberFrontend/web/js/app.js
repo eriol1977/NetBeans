@@ -3,5 +3,6 @@
 angular.module('myApp', [
   'myApp.services',
   'myApp.controllers',
-  'myApp.filters'
+  'myApp.filters',
+  'myApp.constants'
 ]);
