@@ -46,4 +46,14 @@ angular.module('myApp.controllers', []).
 }).controller('PaginationCtrl', function($scope) {
     $scope.numPages = 7;
     $scope.currentPage = 3;
+}).controller('TableSortCtrl', function($scope) {
+    $scope.orderedCol = 'id';
+    $scope.reverse = false;
+    $scope.items = [
+        {id: '1', name: 'Forchetta'},
+        {id: '2', name: 'Coltello'},
+        {id: '3', name: 'Cucchiaio'},
+        {id: '4', name: 'Piatto'},
+        {id: '5', name: 'Bicchiere'}
+    ];
 });

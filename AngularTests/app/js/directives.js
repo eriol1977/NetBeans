@@ -65,4 +65,29 @@ angular.module('myApp.directives', []).directive('pagination', function() {
             };
         }
     };
+}).directive('sort', function() {
+    return {
+        restrict: 'A',
+        transclude: true,
+        template:
+                '<a ng-click="onClick()">' +
+                '<span ng-transclude></span>' +
+                '<i class="glyphicon" ng-class="{\'glyphicon-sort-by-alphabet\' : orderedCol === by && !reverse,  \'glyphicon-sort-by-alphabet-alt\' : orderedCol===by && reverse}"></i>' +
+                '</a>',
+        scope: {
+            orderedCol: '=field',
+            by: '=by',
+            reverse: '=rev'
+        },
+        link: function(scope) {
+            scope.onClick = function() {
+                if (scope.orderedCol === scope.by) {
+                    scope.reverse = !scope.reverse;
+                } else {
+                    scope.by = scope.orderedCol;
+                    scope.reverse = false;
+                }
+            };
+        }
+    };
 });
