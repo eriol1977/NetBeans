@@ -1,13 +1,11 @@
 'use strict';
 
 angular.module('myApp.controllers', []).
-        controller('SchedulesCtrl', function($scope, Schedules, TableSort) {
+        controller('SchedulesCtrl', function($scope, Schedules) {
             refreshModel();
 
-            $scope.sortData = new Array(undefined, false);
-            $scope.sort = function(fieldName) {
-                TableSort.sort(fieldName, $scope.sortData);
-            };
+            $scope.orderedCol = 'id';
+            $scope.reverse = false;
 
             function refreshModel() {
                 $scope.loading = true;
@@ -34,12 +32,14 @@ angular.module('myApp.controllers', []).
 
             $scope.scheduleId = $routeParams.scheduleId;
 
-            $scope.services = Services.query({scheduleId: $routeParams.scheduleId}, function() {
+            $scope.services = Services.query({scheduleId: $routeParams.scheduleId}, servicesLoaded);
+
+            function servicesLoaded() {
                 $scope.loading = false;
                 if ($scope.services.length === 0)
                     $scope.empty = true;
-            });
-
+            }
+            ;
         }).
         controller('EventsCtrl', function($scope, $routeParams, Events, TableSort) {
 

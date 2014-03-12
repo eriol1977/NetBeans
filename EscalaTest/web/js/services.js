@@ -3,21 +3,15 @@
 var appService = angular.module('myApp.services', ['ngResource']);
 
 appService.factory('Schedules', function($resource) {
-    return $resource('http://localhost:8096/wplexon-/scalecrew/schedules', {}, {
-        query: {
-            method: "GET",
-            isArray: 'true',
-            headers: {'Content-Type': 'application/json; charset=UTF-8'}
-        }
-    });
+    return $resource('http://192.168.0.177:8096/wplexon-/scalecrew/schedules', {});
 });
 
 appService.factory('Services', function($resource) {
-    return $resource('http://localhost:8096/wplexon-/scalecrew/crewMembers/:scheduleId', {});
+    return $resource('http://192.168.0.177:8096/wplexon-/scalecrew/crewMembers/:scheduleId', {});
 });
 
 appService.factory('Events', function($resource) {
-    return $resource('http://localhost:8096/wplexon-/scalecrew/events/:scheduleId/:crewMemberId', {});
+    return $resource('http://192.168.0.177:8096/wplexon-/scalecrew/events/:scheduleId/:crewMemberId', {});
 });
 
 appService.service('TableSort', function() {

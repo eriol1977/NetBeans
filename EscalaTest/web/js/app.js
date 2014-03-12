@@ -4,7 +4,8 @@ angular.module('myApp', [
     'ngRoute',
     'myApp.services',
     'myApp.controllers',
-    'myApp.filters'
+    'myApp.filters',
+    'myApp.directives'
 ]).config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/schedules', {templateUrl: 'schedules.html', controller: 'SchedulesCtrl'});
         $routeProvider.when('/services/:scheduleId', {templateUrl: 'services.html', controller: 'ServicesCtrl'});
