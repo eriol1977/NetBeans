@@ -4,6 +4,8 @@
 
 <img ng-show="loading" src="img/spinner.gif" class="center">
 
+<pagination2 ng-hide="loading" collection="schedules" page-size="pageSize" page-size-options="pageSizeOptions" current-page="currentPage" on-select-page="switchPage(page)"></pagination2>
+
 <table ng-hide="loading" class="table table-striped table-hover">
     <tr>
         <th sort by="orderedCol" rev="reverse" field="'id'">Id</th>
@@ -13,12 +15,12 @@
         <th sort by="orderedCol" rev="reverse" field="'creationDate'">Data Criação</th>
         <th sort by="orderedCol" rev="reverse" field="'lastUpdate'">Últ. Atual.</th>
     </tr>
-    <tr ng-repeat="schedule in schedules| orderBy:orderedCol:reverse">
+    <tr ng-repeat="schedule in schedules| orderBy:orderedCol:reverse | pagination:currentPage:pageSize">
         <td>{{schedule.id}}</td>
         <td><a href="#/services/{{schedule.id}}">{{schedule.name}}</a></td>
         <td>{{schedule.remarks}}</td>
         <td>{{schedule.weekDay}}</td>
-        <td>{{schedule.creationDate | dateConverter}}</td>
-        <td>{{schedule.lastUpdate | dateConverter}}</td>
+        <td>{{schedule.creationDate| dateConverter}}</td>
+        <td>{{schedule.lastUpdate| dateConverter}}</td>
     </tr>
 </table>

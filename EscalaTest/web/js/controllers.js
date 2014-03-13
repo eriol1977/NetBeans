@@ -7,10 +7,16 @@ angular.module('myApp.controllers', []).
             $scope.orderedCol = 'id';
             $scope.reverse = false;
 
+            $scope.switchPage = function(page) {
+                // do something?
+            };
+            $scope.pageSizeOptions = new Array(10,15,20,25,30);
             function refreshModel() {
                 $scope.loading = true;
                 $scope.schedules = Schedules.query({}, function() {
                     $scope.loading = false;
+                    $scope.pageSize = 15;
+                    $scope.currentPage = 1;
                 });
             }
 

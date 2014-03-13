@@ -21,7 +21,7 @@ angular.module('myApp.filters', []).filter('dateConverter', function() { //20131
     };
 }).filter('pagination', function() {
     return function(elements, selectedPage, pageSize) {
-        var start = selectedPage * pageSize;
+        var start = (selectedPage - 1) * pageSize;
         return elements.slice(start, start + pageSize);
     };
 });
