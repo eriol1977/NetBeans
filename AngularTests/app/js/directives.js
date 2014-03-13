@@ -8,7 +8,8 @@ angular.module('myApp.directives', []).directive('pagination', function() {
         restrict: 'E',
         scope: {
             numPages: '=',
-            currentPage: '='
+            currentPage: '=',
+            onSelectPage: '&'
         },
         template: '<div><ul class="pagination">' +
                 '<li ng-class="{disabled: noPrevious()}">' +
@@ -41,6 +42,7 @@ angular.module('myApp.directives', []).directive('pagination', function() {
             scope.selectPage = function(page) {
                 if (!scope.isActive(page)) {
                     scope.currentPage = page;
+                    scope.onSelectPage({ page: page });
                 }
             };
 
@@ -72,7 +74,7 @@ angular.module('myApp.directives', []).directive('pagination', function() {
         template:
                 '<a ng-click="onClick()">' +
                 '<span ng-transclude></span>' +
-                '<i class="glyphicon" ng-class="{\'glyphicon-sort-by-alphabet\' : orderedCol === by && !reverse,  \'glyphicon-sort-by-alphabet-alt\' : orderedCol===by && reverse}"></i>' +
+                '<i class="glyphicon" ng-class="{\'glyphicon-arrow-up\' : orderedCol === by && !reverse,  \'glyphicon-arrow-down\' : orderedCol===by && reverse}"></i>' +
                 '</a>',
         scope: {
             orderedCol: '=field',
