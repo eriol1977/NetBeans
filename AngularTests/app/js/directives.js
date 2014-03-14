@@ -67,6 +67,106 @@ angular.module('myApp.directives', []).directive('pagination', function() {
             };
         }
     };
+}).directive('pagination2', function() {
+    return {
+        restrict: 'E',
+        scope: {
+            collection: '=',
+            pageSize: '=',
+            pageSizeOptions: '=',
+            currentPage: '=',
+            onSelectPage: '&'
+        },
+        template: '<div><ul class="pagination">' +
+                '<li>' +
+                '<a><select ng-model="pageSize" ng-options="page for page in pageSizeOptions">' +
+                '<option value="">All</option>' +
+                '</select></a>' +
+                '</li>' +
+                '<li ng-hide="hidePagination()" ng-class="{disabled: noPrevious()}">' +
+                '<a ng-click="selectPrevious()">Previous</a>' +
+                '</li>' +
+                '<li ng-hide="hidePagination()" ng-repeat="page in pages"' +
+                'ng-class="{active: isActive(page)}">' +
+                '<a ng-click="selectPage(page)">{{page}}</a>' +
+                '</li>' +
+                '<li ng-hide="hidePagination()" ng-class="{disabled: noNext()}">' +
+                '<a ng-click="selectNext()">Next</a>' +
+                '</li>' +
+                '</ul></div>',
+        replace: true,
+        link: function(scope) {
+
+            function getCollectionSize()
+            {
+                return scope.collection.length;
+            };
+
+            function getNumberOfPages() {
+                var size = getCollectionSize();
+                if (size === 0 || scope.pageSize === null) {
+                    scope.pageSize = size;
+                    return 1;
+                }
+                return Math.ceil(size / scope.pageSize);
+            };
+
+            function updatePages()
+            {
+                var numberOfPages = getNumberOfPages();
+                scope.pages = [];
+                for (var i = 1; i <= numberOfPages; i++) {
+                    scope.pages.push(i);
+                }
+                if (scope.currentPage > numberOfPages) {
+                    scope.selectPage(numberOfPages);
+                }
+            };
+
+            scope.hidePagination = function() {
+                return getNumberOfPages() === 1;
+            };
+
+            scope.$watch('collection', function() {
+                updatePages();
+            });
+
+            scope.$watch('pageSize', function() {
+                updatePages();
+            });
+
+            scope.isActive = function(page) {
+                return scope.currentPage === page;
+            };
+
+            scope.selectPage = function(page) {
+                if (!scope.isActive(page)) {
+                    scope.currentPage = page;
+                    scope.onSelectPage({page: page});
+                }
+            };
+
+            scope.noNext = function() {
+                return scope.currentPage === getNumberOfPages();
+            };
+
+            scope.noPrevious = function() {
+                return scope.currentPage === 1;
+            };
+
+            scope.selectNext = function() {
+                if (!scope.noNext()) {
+                    scope.selectPage(scope.currentPage + 1);
+                }
+            };
+
+            scope.selectPrevious = function() {
+                if (!scope.noPrevious()) {
+                    scope.selectPage(scope.currentPage - 1);
+                }
+            };
+        }
+    };
 }).directive('sort', function() {
     return {
         restrict: 'A',
