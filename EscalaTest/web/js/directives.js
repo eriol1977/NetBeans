@@ -127,7 +127,7 @@ angular.module('myApp.directives', []).directive('pagination', function() {
                 return getNumberOfPages() === 1;
             };
 
-            scope.$watch('items', function() {
+            scope.$watch('collection', function() {
                 updatePages();
             });
 
