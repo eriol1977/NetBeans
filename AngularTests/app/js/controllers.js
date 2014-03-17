@@ -46,11 +46,11 @@ angular.module('myApp.controllers', []).
 }).controller('PaginationCtrl', function($scope) {
     $scope.numPages = 7;
     $scope.currentPage = 3;
-    
+
     $scope.switchPage = function(page) {
         $scope.pageContent = "Conteudo da página " + page;
     };
-    
+
     $scope.switchPage($scope.currentPage);
 }).controller('TableSortCtrl', function($scope) {
     $scope.orderedCol = 'id';
@@ -62,4 +62,11 @@ angular.module('myApp.controllers', []).
         {id: '4', name: 'Piatto'},
         {id: '5', name: 'Bicchiere'}
     ];
+}).controller('AlertCtrl', function($scope) {
+    $scope.alerts = [{type: 'success', msg: 'Success!'},
+        {type: 'info', msg: 'Info!'},
+        {type: 'warning', msg: 'Warning!'},
+        {type: 'danger', msg: 'Danger!'}];
+    
+    $scope.anotherAlert = {type: 'warning', msg: 'Eis aqui outro alerta...'};
 });

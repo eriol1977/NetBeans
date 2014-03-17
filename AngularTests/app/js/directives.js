@@ -42,7 +42,7 @@ angular.module('myApp.directives', []).directive('pagination', function() {
             scope.selectPage = function(page) {
                 if (!scope.isActive(page)) {
                     scope.currentPage = page;
-                    scope.onSelectPage({ page: page });
+                    scope.onSelectPage({page: page});
                 }
             };
 
@@ -100,7 +100,8 @@ angular.module('myApp.directives', []).directive('pagination', function() {
             function getCollectionSize()
             {
                 return scope.collection.length;
-            };
+            }
+            ;
 
             function getNumberOfPages() {
                 var size = getCollectionSize();
@@ -109,7 +110,8 @@ angular.module('myApp.directives', []).directive('pagination', function() {
                     return 1;
                 }
                 return Math.ceil(size / scope.pageSize);
-            };
+            }
+            ;
 
             function updatePages()
             {
@@ -121,7 +123,8 @@ angular.module('myApp.directives', []).directive('pagination', function() {
                 if (scope.currentPage > numberOfPages) {
                     scope.selectPage(numberOfPages);
                 }
-            };
+            }
+            ;
 
             scope.hidePagination = function() {
                 return getNumberOfPages() === 1;
@@ -190,6 +193,29 @@ angular.module('myApp.directives', []).directive('pagination', function() {
                     scope.reverse = false;
                 }
             };
+        }
+    };
+}).directive('alert', function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: true,
+        template:
+                '<div ng-hide="hideAlert" class="alert alert-{{alert.type}}">{{alert.msg}}' +
+                '<button type="button" class="close">&times;</button>' +
+                '<div ng-transclude></div>' +
+                '</div>',
+        scope: {alert: '='},
+        link: function(scope, element) {
+            
+            scope.hideAlert = false;
+            
+            var closeButton = angular.element(element.children()[0]);
+            closeButton.bind("click", hideAlert);
+
+            function hideAlert() {
+                scope.$apply('hideAlert = true');
+            }
         }
     };
 });
