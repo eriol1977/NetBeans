@@ -192,4 +192,27 @@ angular.module('myApp.directives', []).directive('pagination', function() {
             };
         }
     };
+}).directive('alert', function() {
+    return {
+        restrict: 'E',
+        replace: true,
+        transclude: true,
+        template:
+                '<div ng-hide="hideAlert" class="alert alert-{{alert.type}}">{{alert.msg}}' +
+                '<button type="button" class="close">&times;</button>' +
+                '<div ng-transclude></div>' +
+                '</div>',
+        scope: {alert: '='},
+        link: function(scope, element) {
+            
+            scope.hideAlert = false;
+            
+            var closeButton = angular.element(element.children()[0]);
+            closeButton.bind("click", hideAlert);
+
+            function hideAlert() {
+                scope.$apply('hideAlert = true');
+            }
+        }
+    };
 });

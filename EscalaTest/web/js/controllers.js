@@ -10,7 +10,7 @@ angular.module('myApp.controllers', []).
             $scope.switchPage = function(page) {
                 // do something?
             };
-            $scope.pageSizeOptions = new Array(10,15,20,25,30);
+            $scope.pageSizeOptions = new Array(10, 15, 20, 25, 30);
             function refreshModel() {
                 $scope.loading = true;
                 $scope.schedules = Schedules.query({}, function() {
@@ -40,12 +40,14 @@ angular.module('myApp.controllers', []).
 
             $scope.services = Services.query({scheduleId: $routeParams.scheduleId}, servicesLoaded);
 
+            $scope.alert = {type: 'warning', msg: 'A programação não possui serviços!'};
+
             function servicesLoaded() {
                 $scope.loading = false;
-                if ($scope.services.length === 0)
+                if ($scope.services.length === 0) {
                     $scope.empty = true;
-            }
-            ;
+                }
+            };
         }).
         controller('EventsCtrl', function($scope, $routeParams, Events, TableSort) {
 

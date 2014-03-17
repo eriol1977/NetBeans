@@ -4,7 +4,7 @@
 
 <img ng-show="loading" src="img/spinner.gif" class="center">
 
-<h3 ng-show="empty">A programação não possui serviços!</h3>
+<div ng-show="empty"><alert alert="alert"/></div>
 
 <table ng-hide="loading || empty" class="table table-striped table-hover">
     <tr>
