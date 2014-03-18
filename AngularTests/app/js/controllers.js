@@ -67,6 +67,29 @@ angular.module('myApp.controllers', []).
         {type: 'info', msg: 'Info!'},
         {type: 'warning', msg: 'Warning!'},
         {type: 'danger', msg: 'Danger!'}];
-    
+
     $scope.anotherAlert = {type: 'warning', msg: 'Eis aqui outro alerta...'};
-});
+}).controller('AccordionController', ['$scope', '$attrs',
+    function($scope, $attrs) {
+        this.groups = [];
+        this.closeOthers = function(openGroup) {
+            angular.forEach(this.groups, function(group) {
+                if (group !== openGroup) {
+                    group.isOpen = false;
+                }
+            });
+        };
+        this.addGroup = function(groupScope) {
+            var that = this;
+            this.groups.push(groupScope);
+            groupScope.$on('$destroy', function(event) {
+                that.removeGroup(groupScope);
+            });
+        };
+        this.removeGroup = function(group) {
+            var index = this.groups.indexOf(group);
+            if (index !== -1) {
+                this.groups.splice(this.groups.indexOf(group), 1);
+            }
+        };
+    }]);

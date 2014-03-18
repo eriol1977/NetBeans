@@ -207,15 +207,52 @@ angular.module('myApp.directives', []).directive('pagination', function() {
                 '</div>',
         scope: {alert: '='},
         link: function(scope, element) {
-            
+
             scope.hideAlert = false;
-            
+
             var closeButton = angular.element(element.children()[0]);
             closeButton.bind("click", hideAlert);
 
             function hideAlert() {
                 scope.$apply('hideAlert = true');
             }
+        }
+    };
+}).directive('accordion', function() {
+    return {
+        restrict: 'E',
+        controller: 'AccordionController',
+        link: function(scope, element, attrs) {
+            element.addClass('panel-group');
+        }
+    };
+}).directive('accordionGroup', function() {
+    return {
+        require: '^accordion',
+        restrict: 'E',
+        transclude: true,
+        replace: true,
+        template: '<div class="panel-group">' +
+                '<div class="panel panel-default" >' +
+                '<div class="panel-heading">' +
+                '<h4 class="panel-title">' +
+                '<a class="accordion-toggle" ng-click="isOpen=!isOpen">{{heading}}</a>' +
+                '</h4>' +
+                '</div>' +
+                '</div>' +
+                '<div class="panel-collapse collapse in" ng-show="isOpen">' +
+                '<div class="panel-body" ng-transclude></div>' +
+                '</div>' +
+                '</div>',
+        scope: {heading: '@'},
+        link: function(scope, element, attrs, accordionCtrl) {
+            accordionCtrl.addGroup(scope);
+            scope.isOpen = false;
+            scope.$watch('isOpen', function(value) {
+                if (value) {
+                    accordionCtrl.closeOthers(scope);
+                }
+            });
         }
     };
 });
