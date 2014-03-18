@@ -46,12 +46,19 @@ angular.module('myApp.controllers', []).
 }).controller('PaginationCtrl', function($scope) {
     $scope.numPages = 7;
     $scope.currentPage = 3;
-
     $scope.switchPage = function(page) {
         $scope.pageContent = "Conteudo da página " + page;
     };
-
     $scope.switchPage($scope.currentPage);
+
+    $scope.pageSizeOptions = new Array(5, 10, 15, 20, 25, 30);
+    $scope.items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+    $scope.pageSize = 10;
+    $scope.current = 1;
+    $scope.switchPage2 = function(page) {
+        $scope.pageContent2 = "Conteudo da página " + page;
+    };
+    
 }).controller('TableSortCtrl', function($scope) {
     $scope.orderedCol = 'id';
     $scope.reverse = false;
@@ -61,6 +68,14 @@ angular.module('myApp.controllers', []).
         {id: '3', name: 'Cucchiaio'},
         {id: '4', name: 'Piatto'},
         {id: '5', name: 'Bicchiere'}
+    ];
+}).controller('AccorCtrl', function($scope) {
+    $scope.items = [
+        {heading: 'Cabeçalho 1', body: 'Texto 1'},
+        {heading: 'Cabeçalho 2', body: 'Texto 2'},
+        {heading: 'Cabeçalho 3', body: 'Texto 3'},
+        {heading: 'Cabeçalho 4', body: 'Texto 4'},
+        {heading: 'Cabeçalho 5', body: 'Texto 5'}
     ];
 }).controller('AlertCtrl', function($scope) {
     $scope.alerts = [{type: 'success', msg: 'Success!'},
