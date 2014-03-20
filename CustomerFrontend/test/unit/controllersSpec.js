@@ -1,16 +1,7 @@
 'use strict';
 
-/* jasmine specs for controllers go here */
-
-describe('controllers', function(){
-  beforeEach(module('myApp.controllers'));
-
-
-  it('should ....', inject(function() {
-    //spec body
-  }));
-
-  it('should ....', inject(function() {
-    //spec body
-  }));
+describe("A suite", function() {
+  it("contains spec with an expectation", function() {
+    expect(true).toBe(true);
+  });
 });
