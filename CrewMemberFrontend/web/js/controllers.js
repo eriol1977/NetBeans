@@ -26,7 +26,7 @@ angular.module('myApp.controllers', []).
             $scope.getNumberOfPages = function() {
                 if ($scope.filteredSchedules.length === 0)
                     return 0;
-                return ($scope.filteredSchedules.length / $scope.pageSize);
+                return Math.ceil($scope.filteredSchedules.length / $scope.pageSize);
             };
             $scope.getPaginationArray = function() {
                 var size = $scope.getNumberOfPages();
