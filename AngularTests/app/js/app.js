@@ -18,5 +18,6 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view6', {templateUrl: 'partials/tablesort.html', controller: 'TableSortCtrl'});
   $routeProvider.when('/view7', {templateUrl: 'partials/alert.html', controller: 'AlertCtrl'});
   $routeProvider.when('/view8', {templateUrl: 'partials/accordion.html', controller: 'AccorCtrl'});
+  $routeProvider.when('/view9', {templateUrl: 'partials/tableheaderfilter.html', controller: 'TableHeaderFilterCtrl'});
   $routeProvider.otherwise({redirectTo: '/view1'});
 }]);

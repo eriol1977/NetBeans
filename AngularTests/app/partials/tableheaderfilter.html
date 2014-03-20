@@ -1,0 +1,17 @@
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>Nome</th>
+        <th>Cor</th>
+        <th>Valor</th>
+    </tr>
+    <tr>
+        <td><input type="text" ng-model="filters[0]"/><button type="button" ng-click="clearFilter(0)">&times;</button></td>
+        <td><input type="text" ng-model="filters[1]"/><button type="button" ng-click="clearFilter(1)">&times;</button></td>
+        <td><input type="text" ng-model="filters[2]"/><button type="button" ng-click="clearFilter(2)">&times;</button></td>
+    </tr>
+    <tr ng-repeat="item in items| filter:filterPattern">
+        <td>{{item.name}}</td>
+        <td>{{item.color}}</td>
+        <td>{{item.price}}</td>
+    </tr>
+</table>

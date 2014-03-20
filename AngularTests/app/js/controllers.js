@@ -58,7 +58,7 @@ angular.module('myApp.controllers', []).
     $scope.switchPage2 = function(page) {
         $scope.pageContent2 = "Conteudo da página " + page;
     };
-    
+
 }).controller('TableSortCtrl', function($scope) {
     $scope.orderedCol = 'id';
     $scope.reverse = false;
@@ -107,4 +107,35 @@ angular.module('myApp.controllers', []).
                 this.groups.splice(this.groups.indexOf(group), 1);
             }
         };
-    }]);
+    }]).controller('TableHeaderFilterCtrl', function($scope) {
+    $scope.items = [
+        {name: 'banana', color: 'amarelo', price: '0.99'},
+        {name: 'laranja', color: 'laranja', price: '1.99'},
+        {name: 'maça', color: 'vermelho', price: '1.99'},
+        {name: 'pinha', color: 'verde', price: '3.99'},
+        {name: 'manga', color: 'amarelo', price: '2.99'}
+    ];
+    $scope.filters = createFiltersArray();
+    $scope.clearFilter = function(index) {
+        $scope.filters[index] = "";
+    };
+    $scope.$watch('filters', updateFilterPattern, true);
+
+    function getItemKeys() {
+        var keys = [];
+        for (var k in $scope.items[0])
+            keys.push(k);
+        return keys;
+    }
+
+    function createFiltersArray() {
+        return Array.apply(null, new Array(getItemKeys().length)).map(String.prototype.valueOf, "");
+    }
+
+    function updateFilterPattern() {
+        $scope.filterPattern = new Object();
+        var keys = getItemKeys();
+        for (var i = 0; i < keys.length; i++)
+            $scope.filterPattern[keys[i]] = $scope.filters[i];
+    }
+});
