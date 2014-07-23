@@ -28,6 +28,9 @@ public class OptionalDemo {
 
         }
 
+        // mais conciso
+        name.ifPresent(System.out::println);
+        
         try {
       //Invoking get method on an empty Optaional instance 
             //throws NoSuchElementException.
@@ -35,14 +38,14 @@ public class OptionalDemo {
         } catch (NoSuchElementException ex) {
             System.out.println(ex.getMessage());
         }
-
+        
     //ifPresent method takes a lambda expression as a parameter.
         //The lambda expression can then consume the value if it is present
         //and perform some operation with it.
         name.ifPresent((value) -> {
             System.out.println("The length of the value is: " + value.length());
         });
-
+        
     //orElse method either returns the value present in the Optional instance
         //or returns the message passed to the method in case the value is null.
         System.out.println(empty.orElse("There is no value present!"));
