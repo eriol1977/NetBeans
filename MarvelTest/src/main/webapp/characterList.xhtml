@@ -2,23 +2,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Personagens</title>
     </h:head>
     <h:body>
         <h:form>
-            <h:outputText value="Escolha a personagem:" />
-            <h:selectOneMenu class="form-control" value="#{characterListController.selectedName}">
-                <f:selectItems value="#{characterListController.names}" var="name"
-                               itemValue="#{name}" itemLabel="#{name}" />
-            </h:selectOneMenu>
-            <h:commandButton value="Go!" action="character">
-                <f:setPropertyActionListener
-                    target="#{characterController.selectedName}"
-                    value="#{characterListController.selectedName}">
-                </f:setPropertyActionListener>
-            </h:commandButton>
+            <h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="3">
+                <p:selectOneMenu id="console" value="#{characterListController.selectedName}">
+                    <f:selectItem itemLabel="Escolha uma personagem" itemValue="" />
+                    <f:selectItems value="#{characterListController.names}" />
+                    <f:ajax execute="@form" render="@all" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <hr/>
+            <h:panelGroup rendered="#{characterListController.characterSelected}">
+                <h1>#{characterListController.character.name}</h1>
+                #{characterListController.character.description}
+                <p/>
+                <h:graphicImage value="#{characterListController.character.thumbnail.fileName}" height="300" />
+            </h:panelGroup>
         </h:form>
     </h:body>
 </html>
