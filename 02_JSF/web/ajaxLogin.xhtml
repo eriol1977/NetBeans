@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Login with Ajax</title>
+    </h:head>
+    <h:body>
+        <h:form prependId="false">
+            <h:panelGrid columns="3">
+                <h:outputText value="Name:"/>
+                <h:inputText value="#{user.name}" id="name" validatorMessage="Name must have 1-10 chars">
+                    <f:validateLength minimum="1" maximum="10"/>
+                    <f:ajax execute="@this" render="@all"/>
+                </h:inputText>
+                <h:message for="name"/>
+                
+                <h:outputText value="Password:"/>
+                <f:ajax listener="#{user.checkPassword}">
+                    <h:inputSecret value="#{user.password}" id="password"/>
+                </f:ajax>
+                <h:message for="password"/>
+            </h:panelGrid>
+            <h:commandButton value="Login" type="button" actionListener="#{user.login}">
+                <f:ajax execute="name password" render="status"/>
+            </h:commandButton>
+            <h:outputText value="#{user.status}" id="status"/>
+        </h:form>
+    </h:body>
+</html>
+
