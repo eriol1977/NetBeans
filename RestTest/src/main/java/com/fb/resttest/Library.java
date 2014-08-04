@@ -18,21 +18,35 @@ import javax.inject.Singleton;
 @Startup
 public class Library {
 
+    private int authorIdCounter = 1;
+    
+    private int bookIdCounter = 1;
+    
     private final List<Author> authors = new ArrayList<>();
 
     private final List<Book> books = new ArrayList<>();
 
     public Library() {
-        authors.add(new Author(1,"Francesco", "Bertolino", 37));
-        authors.add(new Author(2,"Stephen", "King", 55));
-        authors.add(new Author(3,"George", "Martin", 63));
+        authors.add(new Author(getAuthorId(),"Francesco", "Bertolino", 37));
+        authors.add(new Author(getAuthorId(),"Stephen", "King", 55));
+        authors.add(new Author(getAuthorId(),"George", "Martin", 63));
 
-        books.add(new Book(1, "La Città degli Automi", authors.get(0), 355));
-        books.add(new Book(2, "La Forgia del destino", authors.get(0), 400));
-        books.add(new Book(3, "The Dome", authors.get(1), 890));
-        books.add(new Book(4, "A Feast for Crows", authors.get(2), 1323));
+        books.add(new Book(getBookId(), "La Fiamma Eterna", authors.get(0), 355));
+        books.add(new Book(getBookId(), "La Forgia del destino", authors.get(0), 400));
+        books.add(new Book(getBookId(), "The Dome", authors.get(1), 890));
+        books.add(new Book(getBookId(), "A Feast for Crows", authors.get(2), 1323));
     }
 
+    private int getBookId()
+    {
+        return bookIdCounter++;
+    }
+    
+    private int getAuthorId()
+    {
+        return authorIdCounter++;
+    }
+    
     public Book getBook(int id) {
         for (final Book b : books) {
             if (b.getId() == id) {
@@ -65,5 +79,12 @@ public class Library {
 
     public List<Book> getBooks() {
         return books;
+    }
+    
+    public Author addAuthor(final String name, final String surname, final int age)
+    {
+        final Author author = new Author(getAuthorId(), name, surname, age);
+        this.authors.add(author);
+        return author;
     }
 }
