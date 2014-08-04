@@ -12,7 +12,7 @@ package com.fb.resttest;
  */
 public class BaseObject {
     
-    private final int id;
+    private int id;
 
     public BaseObject(int id) {
         this.id = id;
@@ -20,6 +20,10 @@ public class BaseObject {
     
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
 }

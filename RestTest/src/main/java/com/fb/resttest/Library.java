@@ -87,4 +87,20 @@ public class Library {
         this.authors.add(author);
         return author;
     }
+    
+    public Author updateAuthor(final int id, final String name, final String surname, final int age)
+    {
+        Author author = getAuthor(id);
+        author.setName(name);
+        author.setSurname(surname);
+        author.setAge(age);
+        return author;
+    }
+    
+    public Author deleteAuthor(final int id)
+    {
+        Author author = getAuthor(id);
+        this.authors.remove(author);
+        return author;
+    }
 }
